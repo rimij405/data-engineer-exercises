@@ -1,14 +1,16 @@
 # Data Engineering Exercises
 
-## Overview
+> :warning: This project is a significant work-in-progress and may change in scope, size, and structure.
+
+## :book: Overview
 
 This project is a collection of solutions for various data engineering practice scenarios. The solutions are implemented in Python and R, two of the most popular languages in the field of data science. The aim of this project is to provide a reference for data engineering enthusiasts and professionals, and to encourage the open-source community to contribute and improve upon these solutions.
 
-## License
+## :page_with_curl: License
 
 This project is licensed under the terms of the MIT license. For more information, please see the [LICENSE](LICENSE) file in this repository.
 
-## Contributing Guide
+## :handshake: Contributing Guide
 
 We welcome contributions from the open-source community. Here are the steps to contribute to this project:
 
@@ -18,7 +20,7 @@ We welcome contributions from the open-source community. Here are the steps to c
 4. Push to the branch (`git push origin feature/fooBar`).
 5. Create a new Pull Request.
 
-## FAQ
+## :question: FAQ
 
 **Q1: What versions of Python and R are these solutions compatible with?**
 
@@ -32,3 +34,6 @@ A2: Please open an issue in the repository describing the bug. If you have a fix
 
 A3: I welcome new practice scenarios. Please open an issue in the repository describing your scenario. If you can provide a solution as well, please open a pull request with the solution.
 
+## :bookmark: Acknowledgements
+
+This project is inspired by the exercises  in [danielbeach](https://github.com/danielbeach)/[data-engineering-practice](https://github.com/danielbeach/data-engineering-practice).
