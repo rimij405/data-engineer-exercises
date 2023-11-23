@@ -4,8 +4,12 @@ on:
   push:
     branches:
       - demo
+  pull_request:
+    branches:
+      - demo
 jobs:
-  Explore-GitHub-Actions:
+  example-build:
+    name: "Demo: Build Repository"
     runs-on: ubuntu-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
