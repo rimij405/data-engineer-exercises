@@ -1,0 +1,5 @@
+# Ignore the scripts folder.
+scripts/*
+
+# Ignore `.python-version` file.
+.python-version
