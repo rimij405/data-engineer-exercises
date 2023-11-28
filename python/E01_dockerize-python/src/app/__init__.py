@@ -8,8 +8,6 @@ inside_container = os.environ.get("DOCKER_CONTAINER") == "1"
 # Configure the logger.
 logging.basicConfig(level=logging.INFO)
 
-logging.info(os.environ.get("DOCKER_CONTAINER"))
-
 def ping() -> Response:
     """
     Send synchronous request to a test endpoint and return the response object.

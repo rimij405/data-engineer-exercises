@@ -2,6 +2,13 @@
 set -e
 set -o pipefail
 
+# Read an environment file.
+if [ -f ".dockerenv" ]
+then
+    # Load the env file if it exists.
+    export $(egrep -v '^#' .dockerenv | xargs)
+fi
+
 # Check if DOCKER_IMAGE_NAME environment variable is set.
 if [ -z "$DOCKER_IMAGE_NAME" ]
 then
