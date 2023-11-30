@@ -4,6 +4,7 @@ set -o pipefail
 
 # Define controlled values.
 SCRIPT_PATH=$(realpath "$0")
+OUTPUT_DIR=$(realpath $(dirname "$SCRIPT_PATH")/../src/docs)
 
 # Define helper functions.
 function help() {
@@ -30,7 +31,6 @@ function help() {
 
 # Initialize variables.
 DOCKER_IMAGE_NAME=rimij405/datascience-exerise-01
-OUTPUT_DIR=src/docs
 
 # Loop through all the positional parameters
 while (( "$#" )); do
@@ -61,7 +61,7 @@ eval set -- "$PARAMS"
 
 # Function that will generate the coverage report.
 make_coverage_report() {
-    local HOST_DIR=$(realpath ../src)/docs/htmlcov
+    local HOST_DIR="$OUTPUT_DIR/htmlcov"
     local CONTAINER_DIR=/code/src/htmlcov
     local MOUNT_PATH=$HOST_DIR:$CONTAINER_DIR
     echo "Generating the coverage report ($MOUNT_PATH)."
@@ -72,24 +72,24 @@ make_coverage_report() {
     # 3. Output HTML report to `/code/htmlcov/index.html`.
     docker run --rm -v $MOUNT_PATH $DOCKER_IMAGE_NAME /bin/bash -c "\
     cd /code/src && \
-    coverage run -m unittest discover && \
-    coverage report && \
-    coverage html && \
-    coverage json && \
+    pipenv run coverage run -m unittest discover && \
+    pipenv run coverage report && \
+    pipenv run coverage html && \
+    pipenv run coverage json && \
     mv coverage.json htmlcov/coverage.json && \
     mv .coverage htmlcov/.coverage"
 }
 
 # Function that will generate the pytest report.
 make_pytest_report() {
-    local HOST_DIR=$(realpath ../src)/docs
+    local HOST_DIR="$OUTPUT_DIR"
     local CONTAINER_DIR=/code/src/docs
     local MOUNT_PATH=$HOST_DIR:$CONTAINER_DIR
     echo "Generating the pytest report ($MOUNT_PATH)."
 
     # Execute command that will:
     # 1. Output HTML report to `$OUTPUT_DIR/reports.html`.
-    docker run --rm -v $MOUNT_PATH $DOCKER_IMAGE_NAME /bin/bash -c "\
+    docker run --rm -v $MOUNT_PATH $DOCKER_IMAGE_NAME /bin/bash -c "pipenv run \
     pytest /code/src/tests --html=src/docs/report.html --self-contained-html"
 }
 
