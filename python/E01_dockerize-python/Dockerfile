@@ -12,8 +12,6 @@ COPY . /code
 RUN pip install --no-cache-dir -r src/requirements.txt
 
 # Define environment variables.
-# NOTE: This is an example for this exercise.
-ENV DSCI_EXERCISE_NUMBER 1
 ENV DOCKER_CONTAINER 1
 
 # Install the package in editable mode.

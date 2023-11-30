@@ -1,5 +1,10 @@
 # Ignore the scripts folder.
 scripts/*
 
-# Ignore `.python-version` file.
-.python-version
+# Ignore the binary files in the src folder.
+src/.venv
+src/*.egg-info
+src/**/__pycache__
+
+# Ignore python management files.
+src/.python-version
