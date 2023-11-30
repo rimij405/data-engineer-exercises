@@ -1,0 +1,62 @@
+#!/bin/bash
+
+set -e
+set -o pipefail
+
+# Define controlled values.
+SCRIPT_PATH=$(realpath "$0")
+
+# Define helper functions.
+function help() {
+  local BASENAME=$(basename "$SCRIPT_PATH")
+  echo "Usage: $BASENAME [OPTIONS]
+
+      This script runs a Docker image with a specified entrypoint.
+
+      OPTIONS:
+        -n, --name        Set the Docker image name. Default is 'rimij405/datascience-exerise-01'.
+        -c, --entrypoint  Set the entrypoint command. Default is 'python /code/src/app/__init__.py'.
+        -h, --help        Display this help message and exit.
+
+      Examples:
+      ./$BASENAME -n my_image -c \"python /code/src/tests/test_app.py\""
+}
+
+# Initialize variables.
+DOCKER_IMAGE_NAME=rimij405/datascience-exerise-01
+ENTRYPOINT="python /code/src/app/__init__.py"
+
+# Loop through all the positional parameters
+while (( "$#" )); do
+    case "$1" in
+      -n|--name)
+      DOCKER_IMAGE_NAME=${2:-$DOCKER_IMAGE_NAME}
+      shift 2
+      break
+      ;;
+      -c|--entrypoint)
+      ENTRYPOINT=${2:-$ENTRYPOINT}
+      shift 2
+      break
+      ;;
+      -h|--help|help)
+      echo "$(help)"
+      exit 2
+      ;;
+      --) # end of argument parsing
+      shift
+      break
+      ;;
+      *) # preserve positional argumetns
+      PARAMS="$PARAMS $1"
+      shift
+      break
+      ;;
+    esac
+done
+
+# Set positional arguments in their proper place
+eval set -- "$PARAMS"
+
+# Run the entrypoint command.
+docker run --rm -it $DOCKER_IMAGE_NAME /bin/bash -c "$ENTRYPOINT"
