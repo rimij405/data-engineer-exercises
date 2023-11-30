@@ -11,13 +11,13 @@ logging.basicConfig(level=logging.INFO)
 def ping() -> Response:
     """
     Send synchronous request to a test endpoint and return the response object.
-    
+
     Returns:
     Response
     """
     r = httpx.get('https://www.httpbin.org/')
     return r
-    
+
 # Conditionally execute code if this is run as the main module.
 if __name__ == '__main__':
     logging.info(f"This is the entrypoint for the Python application.")

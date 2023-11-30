@@ -24,7 +24,3 @@ RUN pipenv install --deploy && \
 
 # Define environment variables.
 ENV DOCKER_CONTAINER 1
-
-
-
-
