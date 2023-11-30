@@ -1,0 +1,70 @@
+#!/bin/bash
+
+set -e
+set -o pipefail
+
+# Define controlled values.
+SCRIPT_PATH=$(realpath "$0")
+
+# Define helper functions.
+function help() {
+  local BASENAME=$(basename "$SCRIPT_PATH")
+  echo "Usage: $BASENAME [OPTIONS]
+
+      This script builds a docker image with the specified context, name, and tag.
+
+      OPTIONS:
+        -f, --file        Set the Docker build context. Default is the parent directory of the script.
+        -n, --name        Set the Docker image name. Default is 'rimij405/datascience-exerise-01'.
+        -t, --tag         Set the Docker image tag. Default is 'latest'.
+        -h, --help        Display this help message and exit.
+
+      Examples:
+      ./$BASENAME -f /path/to/context -n my_image -t v1.0
+      ./$BASENAME --file /path/to/context --name my_image --tag v1.0"
+}
+
+# Initialize variables.
+DOCKER_BUILD_CONTEXT=$(realpath $(dirname "$SCRIPT_PATH")/../)
+DOCKER_IMAGE_NAME=rimij405/datascience-exerise-01
+DOCKER_IMAGE_TAG=latest
+
+# Loop through all the positional parameters
+while (( "$#" )); do
+    case "$1" in
+      -f|--file)
+      DOCKER_BUILD_CONTEXT=${2:-$DOCKER_BUILD_CONTEXT}
+      shift 2
+      break
+      ;;
+      -n|--name)
+      DOCKER_IMAGE_NAME=${2:-$DOCKER_IMAGE_NAME}
+      shift 2
+      break
+      ;;
+      -t|--tag)
+      DOCKER_IMAGE_TAG=${2:-$DOCKER_IMAGE_TAG}
+      shift 2
+      break
+      ;;
+      -h|--help|help)
+      echo "$(help)"
+      exit 2
+      ;;
+      --) # end of argument parsing
+      shift
+      break
+      ;;
+      *) # preserve positional argumetns
+      PARAMS="$PARAMS $1"
+      shift
+      break
+      ;;
+    esac
+done
+
+# Set positional arguments in their proper place
+eval set -- "$PARAMS"
+
+# Use the arguments
+docker build -t $DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG $DOCKER_BUILD_CONTEXT "$@"
