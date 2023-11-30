@@ -15,3 +15,4 @@
 
 # Dev tools
 .python-version
+.venv
