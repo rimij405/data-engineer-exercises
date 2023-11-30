@@ -2,6 +2,7 @@ import unittest
 
 import app
 
+
 # Define the test suite.
 class TestApp(unittest.TestCase):
     """
@@ -20,6 +21,7 @@ class TestApp(unittest.TestCase):
         """
         r = app.ping()
         self.assertEqual(r.status_code, 200)
+
 
 # Run the unittest if this file is executed directly.
 if __name__ == '__main__':
