@@ -19,7 +19,7 @@ function help() {
 
       Examples:
       ./$BASENAME -n my_image
-      
+
       If the Docker image does not exist, it will be built from the context using the 'build-docker-image' script.
 
       The script generates two reports:
@@ -103,5 +103,3 @@ fi
 # Generate the reports.
 make_pytest_report
 make_coverage_report
-
-
