@@ -59,4 +59,4 @@ done
 eval set -- "$PARAMS"
 
 # Run the entrypoint command.
-docker run --rm -it $DOCKER_IMAGE_NAME /bin/bash -c "$ENTRYPOINT"
+docker run --rm -it $DOCKER_IMAGE_NAME /bin/bash -c "pipenv run $ENTRYPOINT"
